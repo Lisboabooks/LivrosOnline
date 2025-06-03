@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>LivrosOnline</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f5f5f5;
+    }
+    h1 {
+      color: #333;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 300px;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .livros {
+      margin-top: 30px;
+    }
+    .livro {
+      background-color: white;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+    .baixar {
+      color: green;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>📚 LivrosOnline</h1>
+  <p>Pesquise o nome de um autor para ver os livros disponíveis:</p>
+
+  <input type="text" id="autorInput" placeholder="Digite o nome do autor">
+  <button onclick="pesquisarLivros()">Pesquisar</button>
+
+  <div class="livros" id="resultado"></div>
+
+  <hr>
+  <p>Quer adicionar um livro? Envie para o administrador do site.</p>
+</body>
+
+<script>
+  const bancoLivros = {
+    "Pedro Lisboa Zacarias": [
+      { titulo: "O Mistério do Quarto 44", gratuito: true },
+      { titulo: "Segredos da Lua Cheia", gratuito: false }
+    ],
+    "Maria Silva": [
+      { titulo: "As Flores do Vento", gratuito: true }
+    ]
+  };
+
+  function pesquisarLivros() {
+    const autor = document.getElementById("autorInput").value.trim();
+    const resultado = document.getElementById("resultado");
+    resultado.innerHTML = "";
+
+    if (!bancoLivros[autor]) {
+      resultado.innerHTML = "<p>Nenhum livro encontrado para esse autor.</p>";
+      return;
+    }
+
+    bancoLivros[autor].forEach(livro => {
+      const div = document.createElement("div");
+      div.className = "livro";
+      div.innerHTML = `<strong>${livro.titulo}</strong><br>` +
+                      (livro.gratuito
+                        ? `<a class="baixar" href="#">Baixar grátis</a>`
+                        : `<span style="color: red;">Não disponível para download</span>`);
+      resultado.appendChild(div);
+    });
+  }
+</script>
+  </html
